@@ -21,7 +21,7 @@ package com.example;
 @SpringApplicationConfiguration(classes = {RepositoryConfiguration.class})
 public class ProfileTester {
 
-    private ProductRepository productRepository;
+    private ProfileRepository profileRepository;
 
     @Autowired
     public void setProfileRepository(ProfileRepository profiletRepository) {
@@ -32,41 +32,40 @@ public class ProfileTester {
     public void profileSave(){
         //setup product
         Profile profile = new Profile();
-        profile.setID("1234");
+        profile.setId("1234");
 
         //save product, verify has ID value after save
         assertNull(profile.getId()); //null before save
-        productRepository.save(product);
-        assertNotNull(product.getId()); //not null after save
+        profileRepository.save(profile);
+        assertNotNull(profile.getId()); //not null after save
 
         //fetch from DB
-        Product fetchedProduct = productRepository.findOne(product.getId());
+        Profile fetchedProfile = profileRepository.findOne(profile.getId());
 
         //should not be null
-        assertNotNull(fetchedProduct);
+        assertNotNull(fetchedProfile);
 
         //should equal
-        assertEquals(product.getId(), fetchedProduct.getId());
-        assertEquals(product.getDescription(), fetchedProduct.getDescription());
+        assertEquals(profile.getId(), fetchedProfile.getId());
 
         //update description and save
-        fetchedProduct.setDescription("New Description");
-        productRepository.save(fetchedProduct);
+        fetchedProfile.setId("3456");
+        profileRepository.save(fetchedProfile);
 
         //get from DB, should be updated
-        Product fetchedUpdatedProduct = productRepository.findOne(fetchedProduct.getId());
-        assertEquals(fetchedProduct.getDescription(), fetchedUpdatedProduct.getDescription());
+        Profile fetchedUpdatedProfile = profileRepository.findOne(fetchedProfile.getId());
+        assertEquals(fetchedProfile.getId(), fetchedUpdatedProfile.getId());
 
         //verify count of products in DB
-        long productCount = productRepository.count();
+        long productCount = profileRepository.count();
         assertEquals(productCount, 1);
 
         //get all products, list should only have one
-        Iterable<Product> products = productRepository.findAll();
+        Iterable<Profile> profiles = profileRepository.findAll();
 
         int count = 0;
 
-        for(Product p : products){
+        for(Profile p : profiles){
             count++;
         }
 
