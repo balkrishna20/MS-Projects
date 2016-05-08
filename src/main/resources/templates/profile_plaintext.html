@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+
+
+</head>
+<body>
+
+    <h2>Profile Details</h2>
+<pre>
+    <label>User ID:
+    <p th:text="${profile.ids}"></p>
+    </label>
+    <label>First Name:
+    <p th:text="${profile.firstName}"></p>
+    </label>
+    <label>Last Name:
+    <p th:text="${profile.lastName}"></p>
+    </label>
+    <label>Email:
+    <p th:text="${profile.email}"></p>
+    </label>
+    <label>Address:
+    <p th:text="${profile.address}"></p>
+    </label>
+    <label>Organization:
+    <p th:text="${profile.organization}"></p>
+    </label>
+    <label>About Myself:
+    <p th:text="${profile.aboutMyself}"></p>
+    </label>
+</pre>
+
+</body>
+</html>

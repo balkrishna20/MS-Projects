@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet" media="screen" />
+	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.css"/>
+
+	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+	<script type ="text/javascript">
+		$(document).ready( function () {
+			var t = $('#menuID').DataTable();
+		});
+	</script>
+<style>
+.jumbotron {
+	background:
+		url("http://www.sehnsucht4design.com/wp-content/uploads/dark-grey-header.jpg");
+	hight: 350px;
+	color: white;
+	text-shadow: #444 0 1px 1px;
+}
+</style>
+</head>
+<body>
+
+	<div class="jumbotron">
+		<center>
+			<h1>Menuitems</h1>
+		</center>
+	</div>
+
+
+
+	<h1>Drink</h1>
+
+	<table id="menuID">
+
+		<thead>
+			<tr>
+				<th>Category</th>
+				<th>Name</th>
+				<th>Picture</th>
+				<th>Unitprice</th>
+				<th>Calories</th>
+				<th>Preparationtime</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr th:each="menuitems : ${menuitems}">
+			<form th:action="${'/menuitems/' + menuitems.menuid}">
+			<td th:text="${menuitems.category}">Category</td>
+				<td th:text="${menuitems.name}">Name</td>
+				<td><img th:src="${menuitems.picture}"
+					style="width: 100px; height: 100px;" /></td>
+				<td th:text="'$ '+${menuitems.unitprice}">price</td>
+				<td th:text="${menuitems.calories}">calories</td>
+				<td th:text="${menuitems.preparationtime}">preparationtime</td> 
+				<td><button type="submit" class="btn btn-primary">Add Menu Item</button></td>
+			</form>
+		</tr>
+			</tbody>
+	  </table>
+</body>
+</html>
+
+
+
+<!-- 		<form action="saveCustomer.html" th:action="@{/exercise12/saveCustomer.html}" th:object="${customer}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            
+            <label for="firstName">First name:</label>
+            <input type="text" th:field="*{firstName}" value="John" />
+            
+            <label for="lastName">Last name:</label>
+            <input type="text" th:field="*{lastName}" value="Wayne" />
+            
+            Genre:
+            <div th:each="gender : ${genders}" class="radio">
+                <input type="radio" th:value="${gender}" th:field="*{gender}" />
+                <label th:for="${#ids.prev('gender')}" th:text="${gender.description}">Male</label>
+            </div>
+            <div th:remove="all" class="radio">
+                <input type="radio" />
+                <label>Female</label>
+            </div>
+            
+
+            
+            <input type="submit" />
+        </form> -->
+
+
+
+
+
+
+<!-- 	<td><label for="male">Order</label> <input type="radio"
+				name="gender" id="male" value="male"></input></td> 
+</tr> -->
+<!-- 	   <div class="form-group">
+                <label class="col-sm-2 control-label">Last Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="menuid" th:field="*{Menuid}"></input>
+                </div>
+            </div> -->
+
+
+
+
+
+
+<!-- 	<table style="width: 80%">
+
+		<tr>
+			<td>Name</td>
+			<td>Picture</td>
+			<td>Unitprice</td>
+			<td>Calories</td>
+			<td>Preparationtime</td>
+
+		</tr>
+
+		<tr th:each="menuitems : ${menuitems}">
+
+		
+			<td th:text="${menuitems.name}">Name</td>
+			<td><img th:src="${menuitems.picture}"
+				style="width: 100px; height: 100px;" /></td>
+			<td th:text="us+${menuitems.unitprice}">price</td>
+			<td th:text="${menuitems.calories}">calories</td>
+			<td th:text="${menuitems.preparationtime}">preparationtime</td>
+		
+		
+			<td><label for="male">Order</label> <input type="radio"
+				name="gender" id="male" value="male"></input></td>
+		</tr>
+		
+		
+		
+		
+	</table> -->
+
+
+
+
+
+
+
+<!-- <table style="width: 70%">
+		<tr>
+			<th>Drink</th>
+			<th>Appetizer</th>
+			<th>Main course</th>
+			<th>Dessert</th>
+		</tr>
+		<tr>
+			<td>cocacola</td>
+			<td>Hummus Cups</td>
+			<td>Steak</td>
+			<td>Ice Cream</td>
+		</tr>
+		<tr>
+			<td><img
+				src="http://www.coca-colaproductfacts.com/content/dam/productfacts/us/productDetails/ProductImages/PDP_Coca-Cola_HFCS_glass_8oz.png"
+				alt="Mountain View" style="width: 100px; height: 100px;"></img></td>
+			<td><img
+				src="http://www.inspiredtaste.net/wp-content/uploads/2012/11/Hummus-Cups-1.jpg"
+				alt="Mountain View" style="width: 100px; height: 100px;"></img></td>
+			<td><img
+				src="http://thefatbutcherdeals.com/wp-content/uploads/2014/09/Rump-Steak-Meal-Deal.jpg"
+				alt="Mountain View" style="width: 100px; height: 100px;"></img></td>
+			<td><img
+				src="http://shewearsmanyhats.com/wp-content/uploads/2013/07/dipped-ice-cream-cones-7.jpg"
+				alt="Mountain View" style="width: 100px; height: 100px;"></img></td>
+		</tr>
+
+
+		<tr th:each="menuitems : ${menuitems}">
+			<td th:text="${menuitems.name}">Product Id</td>
+			<td th:text="${menuitems.picture}">descirption</td>
+			<td th:text="${menuitems.unitprice}">price</td>
+			<td th:text="${menuitems.calories}">calories</td>
+			<td th:text="${menuitems.preparationtime}">preparationtime</td>
+		</tr> 
+
+	</table>  -->
+
+
+
+
+
+
+
+
+<!-- with bootstrap -->
+<!-- 	<div class="form-group">
+		<label for="usr">UserName:</label> <input type="text" class="form-control"
+			placeholder="username" id="usr" />
+	</div>
+	<div class="form-group">
+		<label for="pwd">Password:</label> <input type="password"
+			placeholder="password" class="form-control" id="pwd" />
+	</div> -->
+
+
+
+
+
+
+
+<!-- Raw form -->
+
+
+<!-- <div class="container">
+		<div class="row">
+			<form th:object="${Admin}" th:action="@{/profile}" method="post">
+			<input type="text" class="form-control" th:field="*{firstName}"> </input>
+				userid: <input type="text" class="form-control" th:field="*{userid}" placeholder="userid"></input>
+				<br></br> Password: <input type="text" class="form-control" th:field="*{password}"
+					placeholder="password"></input><br></br>
+			</form>
+		</div>
+	</div>  -->
+
+
+<!-- 	<form th:object="${admin}" th:action="@{/admin}" method="post">
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">UserID:</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" th:field="*{UserId}">
+				</input>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Name:</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" th:field="*{Name}">
+				</input>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Password:</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" th:field="*{Password}">
+				</input>
+			</div>
+		</div>
+		<div class="row">
+			<button type="submit" class="btn btn-info btn-lg btn-block">LOGIN</button>
+		</div>
+
+
+
+	</form> -->
+
+
+
+
+<!-- <h1> Categories </h1>
+		
+		Drink<br></br>
+		 <input type="radio" name="gender"value="male"> Male</input><br></br> 
+		 <input type="radio" name="gender"value="female"> Female</input><br></br> 
+		 <input type="radio"name="gender" value="other"> Other</input><br></br> 
+		 <input type="submit"value="Submit"></input>
+		
+	    Appetizer<br></br>
+	    
+	    Main course<br></br>
+	    
+	    Desert<br></br> -->
+
+
+
+
+
+
+
+
