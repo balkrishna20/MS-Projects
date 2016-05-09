@@ -6,6 +6,7 @@ import javax.persistence.*;
  * Created by Wayne.
  */
 @Entity
+@Embeddable
 public class Menuitems {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -24,6 +25,17 @@ public class Menuitems {
     private int calories;
     @Column(name = "preparationtime")
     private int preparationtime;
+    
+    
+//    private int quantity;
+//    
+//    public int getQuantity(){
+//    	return quantity;
+//    }
+//    public void setQuantity(int quantity){
+//    	
+//    		this.quantity=quantity;
+//    }
     
 	public Integer getMenuid() {
 		return menuid;

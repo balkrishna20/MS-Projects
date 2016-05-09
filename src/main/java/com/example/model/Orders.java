@@ -8,15 +8,37 @@ import javax.persistence.*;
 /**
  * Created by Wayne.
  */
-@Entity
+
+@Entity 
 public class Orders {
-	 @Id
-	 @GeneratedValue(strategy= GenerationType.AUTO)
-	    @Column(name = "ordersid")
-	    public Integer ordersid;
-	 
-    
-    public Integer getOrdersid() {
+	
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ordersid")
+	public Integer ordersid;
+	@Column(name = "userid")
+	public Integer userid;
+	@Id
+	@Column(name = "menuid")
+	public Integer menuid;
+
+	@Column(name = "time")
+	public String time;
+
+	@Column(name = "date")
+	public String date;
+	
+	@Column(name = "quantity")
+	public int quantity=1;
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public Integer getOrdersid() {
 		return ordersid;
 	}
 
@@ -24,46 +46,30 @@ public class Orders {
 		this.ordersid = ordersid;
 	}
 
-	@Column(name = "userid")
-    public Integer userid;
-    
-    
-    @Column(name = "menuid")
-    public Integer menuid;
-    
-    @Column(name = "time")
-    public String time;
-    
-    @Column(name = "date")
-    public Date date;
-	
-//    private  ArrayList<Orders> ordersList = new ArrayList<Orders>();
-//    private  ArrayList<Menuitems> menuitemsList = new ArrayList<Menuitems>();
-    
-//    public ArrayList<Orders> getOrdersList() {
-//		return ordersList;
-//	}
-//    
-//
-//
-//	public void setOrdersList(ArrayList<Orders> ordersList) {
-//		this.ordersList = ordersList;
-//	}
+	// private ArrayList<Orders> ordersList = new ArrayList<Orders>();
+	// private ArrayList<Menuitems> menuitemsList = new ArrayList<Menuitems>();
 
-
-
+	// public ArrayList<Orders> getOrdersList() {
+	// return ordersList;
+	// }
+	//
+	//
+	//
+	// public void setOrdersList(ArrayList<Orders> ordersList) {
+	// this.ordersList = ordersList;
+	// }
 
 	public Integer getUserid() {
 		return userid;
 	}
 
-//	public ArrayList<Menuitems> getMenuitemsList() {
-//		return menuitemsList;
-//	}
-//
-//	public void setMenuitemsList(ArrayList<Menuitems> menuitemsList) {
-//		this.menuitemsList = menuitemsList;
-//	}
+	// public ArrayList<Menuitems> getMenuitemsList() {
+	// return menuitemsList;
+	// }
+	//
+	// public void setMenuitemsList(ArrayList<Menuitems> menuitemsList) {
+	// this.menuitemsList = menuitemsList;
+	// }
 
 	public void setUserid(Integer userid) {
 		this.userid = userid;
@@ -76,7 +82,7 @@ public class Orders {
 	public void setMenuid(Integer menuid) {
 		this.menuid = menuid;
 	}
-	
+
 	public String getTime() {
 		return time;
 	}
@@ -84,16 +90,13 @@ public class Orders {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	
-	public Date getDate() {
+
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
- 
-    
 }
-

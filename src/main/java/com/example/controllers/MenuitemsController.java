@@ -15,6 +15,7 @@ import com.example.repositories.OrdersRepository;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,9 +27,23 @@ public class MenuitemsController {
 
     private MenuitemsService menuitemsService;
     private OrdersService ordersService;
+    //store global orderid for query this person's order
+    private int globalorderid;
+    //first time, orderid will be 1, when we save to database it will increase 1 on @RequestMapping(value = "checkout", method = RequestMethod.POST)
+   // public String saveProduct(Orders orders){} method
+    
+    private int orderid=1;
   
 
-    @Autowired
+    public int getOrderid() {
+		return globalorderid;
+	}
+
+	public void setOrderid(int orderid) {
+		this.globalorderid = orderid;
+	}
+
+	@Autowired
     public void setProductService(MenuitemsService menuitemsService) {
         this.menuitemsService = menuitemsService;
     }
@@ -43,8 +58,8 @@ public class MenuitemsController {
     public String newProduct(Model model){
         model.addAttribute("menuitems", menuitemsService.listAllMenuitems());
         model.addAttribute("webmenuitems",new Menuitems());
-//        model.addAttribute("orders",new Orders());
-        
+        model.addAttribute("orders",new Orders());
+        System.out.println("test");
         return "menuitems";
     }
     
@@ -55,27 +70,111 @@ public class MenuitemsController {
 //    	orders.setUserid(1);;
 //    	ordersService.create(orders);
 //    	
+    	
         return "checkout";
     }
     
     @RequestMapping("menuitems/{id}")
-    public String addMenuItemOrder(@PathVariable Integer id){
+    public String addMenuItemOrder(@PathVariable Integer id,Orders weborders){
     	System.out.println("ID:" + id);
+    	
+    	
     	Orders orders = new Orders();
-//    	orders.setOrdersid(4);
+    	orders.setOrdersid(orderid);
     	orders.setMenuid(id);
     	orders.setUserid(1);
+    	orders.setQuantity(weborders.getQuantity());
     	java.util.Date utilDate = new java.util.Date();
-    	Date myDate = new Date(utilDate.getTime());
+//    	Date myDate = new Date(utilDate.getTime());
     	
     	DateFormat time = new SimpleDateFormat("HHmm");
-    	System.out.println(time.format(myDate));
+//    	System.out.println(time.format(myDate));
     	
-    	orders.setDate(myDate);
-    	orders.setTime(time.format(myDate));
+//    	orders.setDate(myDate);
+//    	orders.setTime(time.format(myDate));
+    	
+    	
     	ordersService.create(orders);
-    	 return "redirect:/menuitems";
+    	
+    	
+    	
+   	    return "redirect:/menuitems";
+    	
     }
+   
+    @RequestMapping("picktime")
+    public String picktime(Model model){
+    	
+   	   
+    	 model.addAttribute("orders",new Orders());
+    	 
+    	
+    	
+    	
+    	
+    	
+    	
+    	return "picktime";
+    	
+    }
+    //place to write the logic for whether user can pick the item or not
+    @RequestMapping(value = "checkout", method = RequestMethod.POST)
+    public String saveProduct(Orders orders){
+       //hardcode userid
+    	System.out.println("checkouttest");
+    	int userid =1;
+    	System.out.println(orders.getTime());
+    	System.out.println(orders.getDate());
+    
+    	Iterable<Orders> orderList=ordersService.listAllOrders() ;
+          Iterator<Orders> orerListIterator= orderList.iterator();
+          while( orerListIterator.hasNext()){
+        	  System.out.println("a");
+        	  Orders singleorders=orerListIterator.next();
+        	  System.out.println("orderid"+singleorders.getUserid());
+        	  if(singleorders.ordersid==userid){
+        		  
+        		 ordersService.update(singleorders, orders.getDate(), orders.getTime());
+		  
+        	  }
+          }
+    	
+    	
+        
+    	
+    	
+    	
+//    	orders.setOrdersid(4);
+//    	orders.setMenuid(id);
+//    	orders.setUserid(1);
+//    	orders.setQuantity(weborders.getQuantity());
+//    	java.util.Date utilDate = new java.util.Date();
+//    	Date myDate = new Date(utilDate.getTime());
+//    	
+//    	DateFormat time = new SimpleDateFormat("HHmm");
+//    	System.out.println(time.format(myDate));
+//    	
+//    	orders.setDate(myDate);
+//    	orders.setTime(time.format(myDate));
+//    	ordersService.create(orders);
+//   	    return "redirect:/menuitems";
+       
+        //next order will increase 1
+      	orderid++;
+    	 
+        return "thankyou";
+    }
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 //    @RequestMapping(value = "menuitems/add", method = RequestMethod.POST)

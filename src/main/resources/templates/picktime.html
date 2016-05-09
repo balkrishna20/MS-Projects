@@ -27,14 +27,16 @@
 	<form th:object="${orders}" th:action="@{/checkout}" method="post">
 		<h1>Pick Up Date</h1>
 		<div class="col-sm-3">
-			<input id="date" type="text" class="form-control"
-				placeholder="yyyy-mm-dd"></input>
+			<!-- <input id="date" type="text" class="form-control"
+				placeholder="yyyy-mm-dd" the:field="*{date}"></input> -->
+				<input type="text" class="form-control" th:field="*{date}" placeholder="yyyymmdd"></input> 
 		</div>
 		<br></br>
 		<h1>Pick Time</h1>
 		<br></br>
 		<div class="col-sm-3">
-			<input id="time" type="text" class="form-control" placeholder="hhmm"></input>
+		<input type="text" class="form-control" th:field="*{time}" placeholder="hhmm"></input>
+			<!-- <input id="time" type="text" class="form-control" placeholder="hhmm" the:field="*{time}"></input> -->
 		</div>
 		<br> </br>
 		<div class="col-sm-3">

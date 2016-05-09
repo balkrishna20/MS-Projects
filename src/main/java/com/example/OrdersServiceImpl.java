@@ -1,5 +1,9 @@
 package com.example;
 
+
+
+import java.sql.Date;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.example.model.Orders;
@@ -40,15 +44,22 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     @Transactional
-    public Orders update(Orders orders) {
-//        Orders updatedOrders = ordersRepository.findOne(orders.getNumberID());
-//
-//        if (updatedProfile == null)
-//
-//
-//        updatedProfile.setFirstName(profile.getFirstName());
+    public Orders update(Orders orders,String date,String time) {
+        Orders updatedOrders = ordersRepository.findOne(orders.getMenuid());
+
+        if (updatedOrders != null){
+        	updatedOrders.setDate(date);
+        	updatedOrders.setTime(time);
+        }
+
      return null;
     }
+    @Override
+    public Iterable<Orders> listAllOrders() {
+        return ordersRepository.findAll();
+    }
+
+	
 
 
 }
