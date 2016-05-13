@@ -29,6 +29,17 @@ public class Orders {
 	
 	@Column(name = "quantity")
 	public int quantity=1;
+	
+	@Column(name = "status")
+	public String status;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public int getQuantity() {
 		return quantity;

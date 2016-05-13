@@ -16,5 +16,5 @@ public interface OrdersService {
         public Orders findById(int id);
         Iterable<Orders> listAllOrders();
 	
-		Orders update(Orders orders, String date, String time);
+		Orders update(Orders orders, String date, String time,String status);
 }

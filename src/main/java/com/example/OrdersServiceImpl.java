@@ -44,12 +44,13 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     @Transactional
-    public Orders update(Orders orders,String date,String time) {
+    public Orders update(Orders orders,String date,String time,String status) {
         Orders updatedOrders = ordersRepository.findOne(orders.getMenuid());
 
         if (updatedOrders != null){
         	updatedOrders.setDate(date);
         	updatedOrders.setTime(time);
+        	updatedOrders.setStatus(status);
         }
 
      return null;
