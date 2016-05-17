@@ -9,7 +9,7 @@
 target
 _mac
 .setting
-.mvn/wrapper
+.mvn
 
 # Packages #
 ############
