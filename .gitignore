@@ -7,6 +7,9 @@
 *.o
 *.so
 target
+_mac
+.setting
+.mvn/wrapper
 
 # Packages #
 ############
