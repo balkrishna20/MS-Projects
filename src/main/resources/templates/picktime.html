@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet" media="screen" />
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css"/>
+<script src="/webjars/jquery/2.2.2/jquery.min.js"></script>
+<style>
+	.jumbotron {
+		background:
+				url("http://www.sehnsucht4design.com/wp-content/uploads/dark-grey-header.jpg");
+		height: 150px;
+		color: white;
+		text-shadow: #444 0 1px 1px;
+	}
+	.jumbotron .h1, .jumbotron h1 {
+		margin-top: -10px;
+	}
+</style>
+
+	<script type="text/javascript">
+
+	$(function() {
+		$('#datetimepicker4').datetimepicker({
+			pickTime: false
+		});
+	});
+
+	$(function() {
+		$('#datetimepicker3').datetimepicker({
+			pickDate: false
+		});
+	});
+	</script>
+	<script type="text/javascript"
+			src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+	</script>
+	<script type="text/javascript"
+			src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+	</script>
+
+</head>
+<body>
+
+	<div class="jumbotron">
+		<center>
+			<h1>Pickup Time</h1>
+		</center>
+	</div>
+
+	<p class="alert alert-danger" th:if="${error != null}" th:text="${error}"></p>
+
+	<form th:object="${orders}" th:action="@{/checkout}" method="post">
+		<h1>Pick Up Date</h1>
+			<!-- <input id="date" type="text" class="form-control"
+				placeholder="yyyy-mm-dd" the:field="*{date}"></input> -->
+		<div class="well">
+			<div id="datetimepicker4" class="input-append">
+				<input data-format="yyyy-MM-dd" th:field="*{date}" type="text"></input>
+				<span class="add-on">
+				<i data-time-icon="icon-time" data-date-icon="icon-calendar">
+			    </i>
+    			</span>
+			</div>
+		</div>
+		<br></br>
+		<h1>Pick Time</h1>
+		<br></br>
+		<div class="well">
+			<div id="datetimepicker3" class="input-append">
+				<input data-format="hh:mm:ss" th:field="*{time}" type="text"></input>
+    			<span class="add-on">
+      			<i data-time-icon="icon-time" data-date-icon="icon-calendar">
+      			</i>
+   				 </span>
+			</div>
+		</div>
+		<br> </br>
+		<div class="col-sm-3">
+			<button type="submit" class="btn btn-primary btn-danger">CHECKOUT</button>
+		</div>
+	</form>
+
+
+</body>
+</html>

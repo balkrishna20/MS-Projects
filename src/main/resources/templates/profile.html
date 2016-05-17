@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+
+    <script src="/webjars/jquery/2.2.2/jquery.min.js"></script>
+    <style>
+        #update
+        {
+            margin-left: 30px;
+            margin-top: 10px;
+            width: 200px;
+        }
+        #delete
+        {
+            margin-left: 30px;
+            margin-top: 10px;
+            width: 200px;
+        }
+    
+    </style>
+    
+</head>
+<body>
+
+    <h2>Profile Details</h2>
+    <div>
+        <form th:object="${profile}" th:action="@{/profile}" method="post">
+            <input type="hidden" th:field="*{numberID}"> </input>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">UserID:</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" readonly="readonly" th:field="*{numberID}"> </input>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">First Name:</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" th:field="*{firstName}"> </input>
+            </div>
+        </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Last Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="lastname" th:field="*{lastName}"></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Email:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="email" th:field="*{email}"></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Address:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="address" th:field="*{address}"></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Organization:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="organization" th:field="*{organization}"></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">About Myself</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="aboutMyself" th:field="*{aboutMyself}"></input>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-success">Update</button>
+            </div>
+        </form>
+        <form th:action="${'/profile/delete/' + profile.ids}" method="delete">
+            <div class="row">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+        </form>
+        <!--<a th:href="${'/profile/delete/' + profile.ids}">Delete</a>-->
+    </div>
+</body>
+</html>
