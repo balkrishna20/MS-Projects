@@ -369,46 +369,59 @@ public class OrdersController {
 
         Long time = null;
 
+        String test = orders.getDate();
 
-        try {
-            date = dateFormat.parse(orders.getDate());
-            time = timeFormat.parse(orders.getTime()).getTime();
+        if(orders.getDate()!=""&& orders.getTime()!="") {
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-        Time sqlTime = new Time(time);
-        boolean foundEarliestTime = false;
-        if (checkOfficeHours(sqlTime)) {
-            if (checkTimeAppropriate(sqlTime, sqlDate, session)) {
-                while (orderListIterator.hasNext()) {
-                    Orders singleorders = orderListIterator.next();
+            try {
+                date = dateFormat.parse(orders.getDate());
+                time = timeFormat.parse(orders.getTime()).getTime();
 
-                    if (singleorders.ordersid == orderid && singleorders.getUserid() == userid) {
-                        orders.setUserid(userid);
-                        orders.setSqlDate(sqlDate);
-                        orders.setSqlTime(sqlTime);
-                        orders.setStatus("Order Placed");
-                        ordersService.update(singleorders, orders.getSqlDate(), orders.getSqlTime(), orders.getStatus());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            Time sqlTime = new Time(time);
+            boolean foundEarliestTime = false;
+            if (checkOfficeHours(sqlTime)) {
+                if (checkTimeAppropriate(sqlTime, sqlDate, session)) {
+                    while (orderListIterator.hasNext()) {
+                        Orders singleorders = orderListIterator.next();
+
+                        if (singleorders.ordersid == orderid && singleorders.getUserid() == userid) {
+                            orders.setUserid(userid);
+                            orders.setSqlDate(sqlDate);
+                            orders.setSqlTime(sqlTime);
+                            orders.setStatus("Order Placed");
+                            ordersService.update(singleorders, orders.getSqlDate(), orders.getSqlTime(), orders.getStatus());
+                        }
                     }
-                }
-                System.out.println("Total prep time: " + preparationTime);
-                globalorderid++;
-                preparationTime = 0;
-                return new ModelAndView("thankyou");
+                    System.out.println("Total prep time: " + preparationTime);
+                    globalorderid++;
+                    preparationTime = 0;
+                    return new ModelAndView("thankyou");
 
+                } else {
+                    Date early = findEarliestTime(sqlTime, sqlDate);
+                    SimpleDateFormat formatString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String earlyTime = formatString.format(early);
+                    return new ModelAndView("picktime", "error", "Pick up time not available. Earliest pickup time is: " + earlyTime);
+                }
             } else {
                 Date early = findEarliestTime(sqlTime, sqlDate);
                 SimpleDateFormat formatString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String earlyTime = formatString.format(early);
-                return new ModelAndView("picktime", "error", "Pick up time not available. Earliest pickup time is: " + earlyTime);
+                return new ModelAndView("picktime", "error", "Pick up time not within office hours. Please choose between 6am-9pm. Earliest pickup time is: " + earlyTime);
             }
-        } else {
-            Date early = findEarliestTime(sqlTime, sqlDate);
+        }
+        else{
+            Date dm = new Date();
+            Time tm = new Time(dm.getTime());
+
+            Date early = findEarliestTime(tm, dm);
             SimpleDateFormat formatString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String earlyTime = formatString.format(early);
-            return new ModelAndView("picktime", "error", "Pick up time not within office hours. Please choose between 6am-9pm. Earliest pickup time is: " + earlyTime);
+            return new ModelAndView("picktime", "error", "Did not choose time! Earliest pickup time is: " + earlyTime);
         }
     }
 

@@ -69,7 +69,7 @@
 					<td><img th:src="${menuitems.picture}" style="width: 100px; height: 100px;" /></td>
 					<td th:text="'$ '+${menuitems.unitprice}">price</td>
 					<td th:text="${menuitems.calories}">calories</td>
-					<td><input type="text" class="form-control" placeholder="1-100" th:field="*{quantity}"></input></td>
+					<td><input type="number" min="1" max="100" class="form-control" placeholder="1-100" th:field="*{quantity}"></input></td>
 					<td><input type="hidden" class="form-control" th:field="*{ordersid}"></input></td>
 					<td><button onclick="myFunction()" id="menuitems.menuid" type="submit" class="btn btn-primary">Add Menu Item</button></td>
 					<td><a href="http://localhost:8080/delete"><button class="btn btn-danger">DELETE</button></a></td>
