@@ -22,14 +22,20 @@
 	<script type="text/javascript">
 
 	$(function() {
+		var date = new Date();
+		var datePlus = new Date();
+		date.setDate(date.getDate());
+		datePlus.setDate(date.getDate()+30);
 		$('#datetimepicker4').datetimepicker({
+			startDate: date,
+			endDate: datePlus,
 			pickTime: false
 		});
 	});
 
 	$(function() {
 		$('#datetimepicker3').datetimepicker({
-			pickDate: false
+			pickDate: false,
 		});
 	});
 	</script>
